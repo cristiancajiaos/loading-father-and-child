@@ -22,9 +22,12 @@ export class FooComponent implements OnInit {
     this.foo.getFoo().subscribe(result => {
       this.result = JSON.stringify(result);
     });
+  }
 
-    this.loading.getRequestStatus().subscribe(result => {
-      console.log(result);
+  reload(): void {
+    this.result = '';
+    this.foo.getFoo().subscribe((result) => {
+      this.result = JSON.stringify(result);
     });
   }
 
