@@ -1,5 +1,7 @@
+import { LoadingService } from './../shared/loading/loading.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FooService } from './foo.service';
 
 @Component({
   selector: 'app-foo',
@@ -11,13 +13,19 @@ export class FooComponent implements OnInit {
   result: string = '';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private foo: FooService,
+    private loading: LoadingService
   ) { }
 
   ngOnInit(): void {
-    this.http.get(`http://jsonplaceholder.typicode.com/users`).subscribe(result => {
+    this.foo.getFoo().subscribe(result => {
       this.result = JSON.stringify(result);
-    })
+    });
+
+    this.loading.getRequestStatus().subscribe(result => {
+      console.log(result);
+    });
   }
 
 }

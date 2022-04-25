@@ -1,3 +1,5 @@
+import { RequestHandleInterceptor } from './interceptors/request-handle.interceptor';
+import { SharedModule } from './shared/shared.module';
 import { NgModule } from '@angular/core';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,9 +22,14 @@ import { FooComponent } from './foo/foo.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ],
   providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: RequestHandleInterceptor,
+    multi: true
+  }, {
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorHandleInterceptor,
     multi: true
